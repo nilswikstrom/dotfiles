@@ -1,0 +1,10 @@
+[Unit]
+Description=Sync Obsidian vault repo to GitHub
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=GIT_TERMINAL_PROMPT=0
+Environment="GIT_SSH_COMMAND=ssh -i /home/yuki/.ssh/github_obsidian -o IdentitiesOnly=yes -o BatchMode=yes"
+ExecStart=%h/.local/bin/obsidian-git-sync.sh

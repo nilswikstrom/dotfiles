@@ -1,0 +1,18 @@
+[Unit]
+Description=Pull Obsidian vault repo
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/yuki/vaults/road-to-engineer
+Environment=GIT_TERMINAL_PROMPT=0
+Environment="GIT_SSH_COMMAND=ssh -i /home/yuki/.ssh/github_obsidian -o IdentitiesOnly=yes -o BatchMode=yes"
+
+ExecStart=/usr/bin/bash -lc '\
+  for i in 1 2 3 4 5; do \
+    /usr/bin/git pull --rebase --autostash && exit 0; \
+    sleep 10; \
+  done; \
+  exit 0 \
+'

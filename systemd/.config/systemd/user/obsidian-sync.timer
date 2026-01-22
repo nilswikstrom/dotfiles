@@ -1,0 +1,13 @@
+[Unit]
+Description=Run Obsidian vault sync daily
+
+[Timer]
+OnCalendar=*-*-* 08:00
+OnCalendar=*-*-* 10:50
+OnCalendar=*-*-* 15:10
+OnCalendar=*-*-* 22:00
+Persistent=true
+RandomizedDelaySec=5m
+
+[Install]
+WantedBy=timers.target
