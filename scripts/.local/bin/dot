@@ -1,0 +1,78 @@
+cat > ~/dotfiles/scripts/.local/bin/dot <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTDIR="${DOTDIR:-$HOME/dotfiles}"
+
+usage() {
+  cat <<USAGE
+Usage: dot <command>
+
+Commands:
+  s, status        Show git status
+  d, diff          Show git diff
+  p, pull          Pull (rebase) from origin
+  c, commit [msg]  Commit all changes (msg optional)
+  u, up [msg]      Pull (rebase) + commit + push (msg optional)
+  push [msg]       Commit (if needed) + push (msg optional)
+USAGE
+}
+
+cd "$DOTDIR"
+
+cmd="${1:-}"
+shift || true
+
+case "$cmd" in
+  s|status)
+    git status -sb
+    ;;
+  d|diff)
+    git --no-pager diff
+    ;;
+  p|pull)
+    git pull --rebase --autostash
+    ;;
+  c|commit)
+    msg="${*:-"dotfiles: update $(date -Is)"}"
+    if git diff --quiet && git diff --cached --quiet; then
+      echo "No changes to commit."
+      exit 0
+    fi
+    git add -A
+    git commit -m "$msg"
+    ;;
+  push)
+    msg="${*:-"dotfiles: update $(date -Is)"}"
+    git pull --rebase --autostash
+    if !(git diff --quiet && git diff --cached --quiet); then
+      git add -A
+      git commit -m "$msg"
+    else
+      echo "No changes to commit."
+    fi
+    git push
+    ;;
+  u|up)
+    msg="${*:-"dotfiles: update $(date -Is)"}"
+    git pull --rebase --autostash
+    if !(git diff --quiet && git diff --cached --quiet); then
+      git add -A
+      git commit -m "$msg"
+    else
+      echo "No changes to commit."
+    fi
+    git push
+    ;;
+  ""|-h|--help|help)
+    usage
+    ;;
+  *)
+    echo "Unknown command: $cmd"
+    usage
+    exit 1
+    ;;
+esac
+EOF
+
+chmod +x ~/dotfiles/scripts/.local/bin/dot
