@@ -11,6 +11,7 @@ Commands:
   s, status        Show git status
   d, diff          Show git diff
   p, pull          Pull (rebase) from origin
+  r, reset [path]  Discard local changes (all or single file)
   c, commit [msg]  Commit all changes (msg optional)
   u, up [msg]      Pull (rebase) + commit + push (msg optional)
   push [msg]       Commit (if needed) + push (msg optional)
@@ -31,6 +32,20 @@ case "$cmd" in
     ;;
   p|pull)
     git pull --rebase --autostash
+    ;;
+  r|reset)
+    if [[ $# -gt 0 ]]; then
+      target="$1"
+      echo "This will discard changes in: $target"
+      read -rp "Are you sure? [y/N] " ans
+      [[ "$ans" =~ ^[Yy]$ ]] || exit 0
+      git restore -- "$target"
+    else
+      echo "This will discard ALL local changes in dotfiles."
+      read -rp "Are you sure? [y/N] " ans
+      [[ "$ans" =~ ^[Yy]$ ]] || exit 0
+      git restore .
+    fi
     ;;
   c|commit)
     msg="${*:-"dotfiles: update $(date -Is)"}"
