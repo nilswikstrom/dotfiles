@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Opens a slider and sets brightness using brightnessctl.
+# Works best for laptop backlight devices (intel_backlight, amdgpu_bl0, etc.)
+
+# Get current brightness in %
+current="$(brightnessctl -m | awk -F, '{print $4}' | tr -d '%')"
+
+# If parsing failed, fallback to 50
+current="${current:-50}"
+
+# Show slider (returns chosen value or empty on cancel)
+value="$(
+  zenity --scale \
+    --title="Brightness" \
+    --text="Set screen brightness" \
+    --min-value=1 --max-value=100 --value="$current" \
+    --step=1
+)" || exit 0
+
+# Apply
+brightnessctl set "${value}%"

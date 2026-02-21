@@ -30,8 +30,28 @@
 		"on-click": "gnome-calendar"
     },
     "backlight": {
-    "format": "{percent}% {icon}",
-    "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", "", "", ""],
+        "scroll-step": 5,
+        "on-click": "brightness-slider",
+        "on-click-middle": "brightnessctl set 100%",
+        // "on-click-right": "pidof hyprsunset && hyprsunset -r || hyprsunset -t 3500"
+        "on-click-right": "sunset 3500"
+    },
+    "battery": {
+        "states": {
+            "warning": "30",
+            "critical": "15"
+        },
+        "tooltip": "true",
+    },
+    "battery.critical:not(.charging)": {
+        "color": "#EEEEEE",
+        "animation-name": "blink",
+        "animation-duration": "0.5s",
+        "animation-timing-function": "linear",
+        "animation-iteration-count": "infinite",
+        "animation-direction": "alternate",
     },
     "pulseaudio": {
         "format": "{volume}% {icon} ",

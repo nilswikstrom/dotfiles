@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+TEMP="${1:-3500}"
+
+if pgrep -x hyprsunset >/dev/null; then
+  # turn off
+  pkill -x hyprsunset || true
+else
+  # turn on
+  hyprsunset -t "$TEMP" >/dev/null 2>&1 &
+  disown
+fi
