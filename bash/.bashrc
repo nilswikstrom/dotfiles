@@ -11,6 +11,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias src='source ~/.bashrc'
 alias yeet='yay -R'
+alias ubisoft='umu-run "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\UbisoftConnect.exe"'
 
 # VPN-configs
 alias vpn-no='sudo wg-quick down wg-us 2>/dev/null; sudo wg-quick down wg-jp 2>/dev/null; sudo wg-quick up wg-no'
