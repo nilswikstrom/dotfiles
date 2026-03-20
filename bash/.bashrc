@@ -11,6 +11,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias src='source ~/.bashrc'
 alias yeet='yay -R'
+alias cls='clear'
 alias ubisoft='DXVK_ASYNC=1 mangohud gamemoderun umu-run "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\UbisoftConnect.exe"'
 
 # VPN-configs
