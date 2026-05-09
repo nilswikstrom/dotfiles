@@ -38,3 +38,4 @@ fastfetch
 . "$HOME/.local/share/../bin/env"
 
 export PATH="$HOME/.local/bin:$PATH"
+export DOTFILES="$HOME/dotfiles"
