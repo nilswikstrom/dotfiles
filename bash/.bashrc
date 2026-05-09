@@ -13,6 +13,7 @@ alias src='source ~/.bashrc'
 alias yeet='yay -R'
 alias cls='clear && fastfetch'
 alias ubisoft='DXVK_ASYNC=1 mangohud gamemoderun umu-run "C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\UbisoftConnect.exe"'
+alias calendar='firefox --new-tab https://calendar.google.com/calendar/u/0/r'
 
 # VPN-configs
 alias vpn-no='sudo wg-quick down wg-us 2>/dev/null; sudo wg-quick down wg-jp 2>/dev/null; sudo wg-quick up wg-no'
